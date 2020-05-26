@@ -1,0 +1,6 @@
+database 
+nama: p_urdalapp
+
+
+username: admin@admin.com
+passw: 12345
