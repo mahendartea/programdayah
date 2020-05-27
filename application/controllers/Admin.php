@@ -17,44 +17,97 @@ class Admin extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        // $dataAnggaran = $this->my_model->tampil("anggaran")->result();
-        // $data['listanggaran'] = $dataAnggaran;
-        $totalanggaran = $this->my_model->totalAnggara('anggaran', 'anggaran');
-        $data['saldo'] = $totalanggaran;
-
-        $listpekerjaan = $this->my_model->tampil("pekerjaan")->num_rows();
-        $data['jmlkerja'] = $listpekerjaan;
-
-        $listkonsultan = $this->my_model->tampil("konsultan")->num_rows();
-        $data['jmlkons'] = $listkonsultan;
-
-        $listsuplier = $this->my_model->tampil("suplier")->num_rows();
-        $data['jmlsup'] = $listsuplier;
-
-        $this->db->order_by('id_t');
-        $this->db->join('pekerjaan b', 'b.id = a.id_kerjaan');
-        $hitungtransaksi = $this->my_model->tampil("transaksi a")->result();
-        $total = 0;
-        foreach ($hitungtransaksi as $transaksi) {
-            $subtotal = $transaksi->vol * $transaksi->harga;
-            $total += $subtotal;
-        }
-        $data['totaltransaksi'] =  $total;
-        $sisa = $totalanggaran - $total;
-        $data['sisaanggaran'] = $sisa;
-
-        $data['pesentotal'] = number_format($total / $totalanggaran * 100, 2);
-        $data['pesensisa'] = number_format($sisa / $totalanggaran * 100, 2);
-
-        // $data['transaksi'] = $listransaksi;
-
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('templates/footer');
     }
+
+    public function kecamatan()
+    {
+        $data['title'] = 'Kelola Kecamatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $listkec = $this->my_model->tampil("kecamatan")->result();
+        $data['kecamatan'] = $listkec;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/kecamatan', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function pluskec()
+    {
+        $namakec = $this->input->post('kec');
+        $kec  = ['nm_kec' => $namakec];
+        $cekinput = $this->my_model->tambahdata("kecamatan", $kec);
+        if ($cekinput) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan!</div>');
+            redirect('admin/kecamatan');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+            redirect('admin/kecamatan');
+        }
+    }
+
+    public function hapuskec($id)
+    {
+        $where = array('id' => $id);
+        if ($this->my_model->hapus("kecamatan", $where)) {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-success' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil dihapus.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data Gagal dihapus. Coba lagi.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    // public function index__()
+    // {
+    //     $data['title'] = 'Dashboard';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+    //     // $dataAnggaran = $this->my_model->tampil("anggaran")->result();
+    //     // $data['listanggaran'] = $dataAnggaran;
+    //     $totalanggaran = $this->my_model->totalAnggara('anggaran', 'anggaran');
+    //     $data['saldo'] = $totalanggaran;
+
+    //     $listpekerjaan = $this->my_model->tampil("pekerjaan")->num_rows();
+    //     $data['jmlkerja'] = $listpekerjaan;
+
+    //     $listkonsultan = $this->my_model->tampil("konsultan")->num_rows();
+    //     $data['jmlkons'] = $listkonsultan;
+
+    //     $listsuplier = $this->my_model->tampil("suplier")->num_rows();
+    //     $data['jmlsup'] = $listsuplier;
+
+    //     $this->db->order_by('id_t');
+    //     $this->db->join('pekerjaan b', 'b.id = a.id_kerjaan');
+    //     $hitungtransaksi = $this->my_model->tampil("transaksi a")->result();
+    //     $total = 0;
+    //     foreach ($hitungtransaksi as $transaksi) {
+    //         $subtotal = $transaksi->vol * $transaksi->harga;
+    //         $total += $subtotal;
+    //     }
+    //     $data['totaltransaksi'] =  $total;
+    //     $sisa = $totalanggaran - $total;
+    //     $data['sisaanggaran'] = $sisa;
+
+    //     $data['pesentotal'] = number_format($total / $totalanggaran * 100, 2);
+    //     $data['pesensisa'] = number_format($sisa / $totalanggaran * 100, 2);
+
+    //     // $data['transaksi'] = $listransaksi;
+
+
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('admin/index', $data);
+    //     $this->load->view('templates/footer');
+    // }
 
 
     public function role()
