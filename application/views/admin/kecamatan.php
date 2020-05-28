@@ -23,7 +23,7 @@
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         <?= $kec->nm_kec ?>
                         <div>
-                           <a href=""><span class="badge badge-warning badge-pill">edit</span></a>
+                           <a href="<?= base_url('admin/editkec/' . $kec->id) ?>"><span class="badge badge-warning badge-pill">edit</span></a>
                            <a href="<?= base_url('admin/hapuskec/' . $kec->id)  ?>" onclick="return confirm()"><span class="badge badge-danger badge-pill">hapus</span></a>
                         </div>
                      </li>

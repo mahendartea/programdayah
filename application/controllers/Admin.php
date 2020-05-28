@@ -65,6 +65,146 @@ class Admin extends CI_Controller
         }
     }
 
+    public function editkec($id)
+    {
+        $data['title'] = 'Edit Kecamatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $where = array('id' => $id);
+        $cekdata = $this->my_model->cek_data("kecamatan", $where);
+        $data['vubah'] = $cekdata->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/vedit_kec', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function update_kec()
+    {
+        $id = trim($this->security->xss_clean($this->input->post('id')));
+        $updatekec = trim($this->security->xss_clean($this->input->post('updatekec')));
+
+        $whereId = ['id' => $id];
+        $data = array('nm_kec' => $updatekec);
+        $updatedata = $this->my_model->update("kecamatan", $whereId, $data);
+        if ($updatedata) {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-info' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil disimpan..!</div>");
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data gagal disimpan..!</div>");
+        }
+        redirect('admin/kecamatan');
+    }
+
+    public function dayah()
+    {
+        $data['title'] = 'Data Dayah Terdaftar';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->db->order_by('a.id', 'desc');
+        $this->db->select('a.id,a.nm_dayah,a.alamat,a.desa,b.nm_kec,a.telp,a.ka_dayah');
+        $this->db->join("kecamatan b", "b.id=a.id_kec");
+        $listdayah = $this->my_model->tampil("dayah a")->result();
+        $data['dayahs'] = $listdayah;
+
+        $liskec = $this->my_model->tampil('kecamatan');
+        $data['liskec'] = $liskec->result();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/dayah', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function plusdayah()
+    {
+        $nmdayah = $this->input->post('nmdayah');
+        $alamat = $this->input->post('alamat');
+        $desa = $this->input->post('desa');
+        $kecamatan = $this->input->post('kecamatan');
+        $kontak = $this->input->post('kontak');
+        $pidayah = $this->input->post('pidayah');
+
+        $datadayah = ['nm_dayah' => $nmdayah, 'alamat' => $alamat, 'desa' => $desa, 'id_kec' => $kecamatan, 'telp' => $kontak, 'ka_dayah' => $pidayah];
+
+        $cekinput = $this->my_model->tambahdata("dayah", $datadayah);
+        if ($cekinput) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan!</div>');
+            redirect('admin/dayah');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+            redirect('admin/dayah');
+        }
+    }
+
+    public function hapus_kec($id)
+    {
+        $where = array('id' => $id);
+        if ($this->my_model->hapus("dayah", $where)) {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-success' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil dihapus.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data Gagal dihapus. Coba lagi.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function vedit_dayah($id)
+    {
+        $data['title'] = 'Edit Dayah';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $where = array('a.id' => $id);
+        $this->db->select('a.id,a.nm_dayah,a.alamat,a.desa,a.id_kec,a.telp,a.ka_dayah,b.nm_kec');
+        $this->db->join('kecamatan b', 'a.id_kec=b.id');
+        $cekdata = $this->my_model->cek_data("dayah a", $where);
+        $data['veddayah'] = $cekdata->result();
+
+        $liskec = $this->my_model->tampil('kecamatan');
+        $data['liskec'] = $liskec->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/vedit_dayah', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function update_dayah()
+    {
+        $id = trim($this->security->xss_clean($this->input->post('id')));
+        $updnamadayah = trim($this->security->xss_clean($this->input->post('updnamadayah')));
+        $uptalamat = trim($this->security->xss_clean($this->input->post('uptalamat')));
+        $upddesa = trim($this->security->xss_clean($this->input->post('upddesa')));
+        $updkec = trim($this->security->xss_clean($this->input->post('updkec')));
+        $updkontak = trim($this->security->xss_clean($this->input->post('updkontak')));
+        $updkdayah = trim($this->security->xss_clean($this->input->post('updkdayah')));
+
+        $whereid = ['id' => $id];
+        $data = ['nm_dayah' => $updnamadayah, 'alamat' => $uptalamat, 'desa' => $upddesa, 'id_kec' => $updkec, 'telp' => $updkontak, 'ka_dayah' => $updkdayah];
+
+        $updatedayah = $this->my_model->update('dayah', $whereid, $data);
+
+        if ($updatedayah) {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-info' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil disimpan..!</div>");
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data gagal disimpan..!</div>");
+        }
+        redirect('admin/dayah');
+
+        // $whereId = ['id' => $id];
+        // $data = array('nm_kec' => $updatekec);
+        // $updatedata = $this->my_model->update("kecamatan", $whereId, $data);
+        // if ($updatedata) {
+        //     $this->session->set_flashdata("message", "<br/><div class='alert alert-info' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil disimpan..!</div>");
+        // } else {
+        //     $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data gagal disimpan..!</div>");
+        // }
+        // redirect('admin/kecamatan');
+    }
     // public function index__()
     // {
     //     $data['title'] = 'Dashboard';
