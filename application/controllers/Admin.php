@@ -194,17 +194,59 @@ class Admin extends CI_Controller
             $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data gagal disimpan..!</div>");
         }
         redirect('admin/dayah');
-
-        // $whereId = ['id' => $id];
-        // $data = array('nm_kec' => $updatekec);
-        // $updatedata = $this->my_model->update("kecamatan", $whereId, $data);
-        // if ($updatedata) {
-        //     $this->session->set_flashdata("message", "<br/><div class='alert alert-info' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil disimpan..!</div>");
-        // } else {
-        //     $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data gagal disimpan..!</div>");
-        // }
-        // redirect('admin/kecamatan');
     }
+
+    public function petugas()
+    {
+        $data['title'] = 'Data Tim Koordinator Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $listpetugas = $this->my_model->tampil("petugas")->result();
+        $data['petugas'] = $listpetugas;
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/petugas', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function hapus_petugas($id)
+    {
+        $where = array('id' => $id);
+        if ($this->my_model->hapus("petugas", $where)) {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-success' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil dihapus.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data Gagal dihapus. Coba lagi.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function pluspetugas()
+    {
+        $nip = $this->input->post('nip');
+        $nmpetugas = $this->input->post('nmpetugas');
+        $username = $this->input->post('username');
+        $pass = $this->input->post('pass');
+        $alamat = $this->input->post('alamat');
+        $kontak = $this->input->post('kontak');
+
+        $password = password_hash($pass, PASSWORD_DEFAULT);
+
+        $datapetugas = ['nip' => $nip, 'nama' => $nmpetugas, 'username' => $username, 'pass' => $password, 'alamat' => $alamat, 'notelp' => $kontak, 'level' => 2];
+
+        $cekinput = $this->my_model->tambahdata("petugas", $datapetugas);
+        if ($cekinput) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan!</div>');
+            redirect('admin/petugas');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+            redirect('admin/petugas');
+        }
+    }
+
     // public function index__()
     // {
     //     $data['title'] = 'Dashboard';
