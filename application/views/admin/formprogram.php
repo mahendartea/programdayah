@@ -13,7 +13,7 @@
                <h6 class="m-0 font-weight-bold text-primary">Formulir Tambah Kegiatan</h6>
             </div>
             <div class="card-body">
-               <form action="<?= base_url('') ?>" method="post">
+               <form action="<?= base_url('admin/tambahprog') ?>" method="post">
                   <div class="form-group row">
                      <label for="nmusualan" class="col-sm-4 col-form-label">Nama Program Usulan</label>
                      <div class="col-sm-8">
@@ -63,9 +63,43 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="pidayah" class="col-sm-4 col-form-label">Pimpinan Dayah</label>
+                     <label for="dayah" class="col-sm-4 col-form-label">Dayah</label>
                      <div class="col-sm-8">
-                        <input type="text" class="form-control" id="pidayah" name="pidayah">
+                        <select name="dayah" id="dayah" class="custom-select form-control custom-select-sm">
+                           <?php foreach ($datadayah as $dayah) : ?>
+                              <option value="<?= $dayah->id ?>"><?= $dayah->nm_dayah ?></option>
+                           <?php endforeach ?>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="status" class="col-sm-4 col-form-label">Status</label>
+                     <div class="col-sm-8">
+                        <select name="status" id="status" class="custom-select form-control custom-select-sm">
+                           <option value="0" selected>Proses</option>
+                           <option value="1">Diterima</option>
+                           <option value="2">Ditolak</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="koor" class="col-sm-4 col-form-label">Petugas Monitor</label>
+                     <div class="col-sm-8">
+                        <select name="koor" id="koor" class="custom-select form-control custom-select-sm">
+                           <?php foreach ($datapetugas as $pt) : ?>
+                              <option value="<?= $pt->id ?>"><?= $pt->nama ?></option>
+                           <?php endforeach ?>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="file" class="col-sm-4 col-form-label">File Proposal</label>
+                     <div class="col-sm-8">
+                        <div class="custom-file mb-3">
+                           <input type="file" class="custom-file-input" id="validatedCustomFile" name="file">
+                           <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                           <span class="text-danger font-italic">*berkas harus berformat pdf dan berukuran max 3Mb</span>
+                        </div>
                      </div>
                   </div>
                   <button type="submit" class="btn btn-primary float-right">Simpan</button>

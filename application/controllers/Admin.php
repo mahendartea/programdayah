@@ -399,6 +399,12 @@ class Admin extends CI_Controller
         $data['title'] = 'Tambah Program Kegiatan Dayah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $listdayah = $this->my_model->tampil("dayah");
+        $data['datadayah'] = $listdayah->result();
+
+        $listputugas = $this->my_model->tampil("petugas");
+        $data['datapetugas'] = $listputugas->result();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
