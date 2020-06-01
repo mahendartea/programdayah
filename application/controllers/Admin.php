@@ -405,6 +405,10 @@ class Admin extends CI_Controller
         $detailprogram = $this->my_model->cek_data('program a', $where);
         $data['progdetail'] = $detailprogram->result();
 
+        $where = ['id_keg' => $id];
+        $detailrincian = $this->my_model->cek_data('rincian', $where);
+        $data['rincian'] = $detailrincian->result();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

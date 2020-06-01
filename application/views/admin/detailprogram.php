@@ -127,21 +127,29 @@
                            <th>Harga Satuan</th>
                            <th>Jumlah</th>
                            <th>Harga</th>
-                           <th>Aksi</th>
                         </tr>
                      </thead>
-                     <tfoot align="center">
-                        <tr>
-                           <th>No.</th>
-                           <th>Material/Jasa</th>
-                           <th>Harga Satuan</th>
-                           <th>Jumlah</th>
-                           <th>Harga</th>
-                           <th>Aksi</th>
-                        </tr>
-                     </tfoot>
                      <tbody>
-
+                        <?php $no = 1;
+                        $total = 0;
+                        foreach ($rincian as $r) : ?>
+                           <tr>
+                              <td align="center"><?= $no ?></td>
+                              <td><?= $r->nm_item ?></td>
+                              <td>Rp. <span class="uang"><?= $r->satuan ?></span></td>
+                              <td align="center"><?= $r->jml ?></td>
+                              <?php $subtotal = $r->satuan * $r->jml; ?>
+                              <td>Rp. <span class="uang"><?= $subtotal ?></span></td>
+                              <?php $no++ ?>
+                              <?php
+                              $total += $subtotal;
+                              ?>
+                           </tr>
+                        <?php endforeach; ?>
+                     <tfoot>
+                        <td colspan="4" align="center"> <span class="font-weight-bold"> Total Belanja </span></td>
+                        <td class="font-weight-bold">Rp. <span class="uang"><?= $total ?></span></td>
+                     </tfoot>
                      </tbody>
                   </table>
                </div>
