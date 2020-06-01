@@ -393,4 +393,22 @@ class Admin extends CI_Controller
         $this->load->view('admin/program', $data);
         $this->load->view('templates/footer');
     }
+
+    function detailprog($id)
+    {
+        $data['title'] = 'Detail Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $where = ['a.id' => $id];
+        $this->db->join('petugas c', 'c.id = a.id_koor');
+        $this->db->join('dayah b', 'b.id=a.id_dayah');
+        $detailprogram = $this->my_model->cek_data('program a', $where);
+        $data['progdetail'] = $detailprogram->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/detailprogram', $data);
+        $this->load->view('templates/footer');
+    }
 }

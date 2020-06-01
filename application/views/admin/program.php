@@ -47,8 +47,8 @@
                         foreach ($program as $prg) : ?>
                            <tr>
                               <td align="center"><?= $no ?></td>
-                              <td><span class="font-italic font-weight-bold"><a href=""><?= $prg->nm_program ?></a></span></span></td>
-                              <td align="center"><span class="badge badge-dark"><?= $prg->thn_ajuan ?></td>
+                              <td><span class="font-italic font-weight-bold"><a href="<?= base_url('admin/detailprog/') ?><?= $prg->id ?>"><?= $prg->nm_program ?></a></span></span></td>
+                              <td align="center"><span class="badge badge-dark"><?= $prg->thn_realisasi ?></td>
                               <td align="center"><span class="text-uppercase font-weight-bold"><?= $prg->nm_dayah ?></span></td>
                               <td align="center">
                                  <?php if ($prg->status == 1) : ?>
@@ -61,8 +61,10 @@
                               </td>
                               <td align="center" class=" font-weight-lighter">
                                  <a href="<?= base_url('admin/programedit/') ?><?= $prg->id ?>" data-toggle="tooltip" data-placement="top" title="Ubah"><i class="fas fa-edit"></i></a> |
-                                 <a href="<?= base_url('admin/hapus_dayah/') ?><?= $prg->id ?>" onclick="return confirm_delete()" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fas fa-trash text-danger"></i></a> |
-                                 <a href="<?= base_url('admin/programprop/') ?><?= $prg->id ?>" data-toggle="tooltip" data-placement="top" title="File Proposal"><i class="fas fa-file text-warning"></i></a>
+                                 <a href="<?= base_url('admin/hapus_dayah/') ?><?= $prg->id ?>" onclick="return confirm_delete()" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fas fa-trash text-danger"></i></a>
+                                 <?php if (isset($prg->file)) : ?>
+                                    | <a href="<?= base_url('admin/programprop/') ?><?= $prg->id ?>" data-toggle="tooltip" data-placement="top" title="File Proposal"><i class="fas fa-file text-warning"></i></a>
+                                 <?php endif ?>
                                  <?php $no++ ?>
                            </tr>
                         <?php endforeach; ?>
