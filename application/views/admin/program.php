@@ -10,7 +10,7 @@
 
    <!-- DataTales Example -->
    <div class="">
-      <a href="" class="btn btn-primary mb-2">Tambah Ajuan</a>
+      <a href="<?= base_url('admin/addprogram') ?>" class="btn btn-primary mb-2">Tambah Ajuan</a>
    </div>
 
    <div class="row">

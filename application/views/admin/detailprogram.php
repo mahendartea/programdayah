@@ -67,7 +67,7 @@
                         : Rp. <span class="text-capitalize font-italic uang"> <?= $prog->ajuan  ?></span>
                      </div>
                   </div>
-                  <div class="row">
+                  <div class="row font-weight-bold">
                      <div class="col-md-4">
                         <p> Realisasi </p>
                      </div>
@@ -115,7 +115,7 @@
       <div class="col-12">
          <div class="card shadow mb-4">
             <div class="card-header py-3">
-               <h6 class="m-0 font-weight-bold text-primary">Rincian Dana</h6>
+               <h6 class="m-0 font-weight-bold text-primary">Rincian Dana (Diinput petugas monitoring)</h6>
             </div>
             <div class="card-body">
                <div class="table-responsive">
@@ -125,8 +125,9 @@
                            <th>No.</th>
                            <th>Material/Jasa</th>
                            <th>Harga Satuan</th>
+                           <th>Kuantitas</th>
+                           <th>Satuan Unit</th>
                            <th>Jumlah</th>
-                           <th>Harga</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -138,6 +139,7 @@
                               <td><?= $r->nm_item ?></td>
                               <td>Rp. <span class="uang"><?= $r->satuan ?></span></td>
                               <td align="center"><?= $r->jml ?></td>
+                              <td align="center"><?= $r->unitsatuan ?></td>
                               <?php $subtotal = $r->satuan * $r->jml; ?>
                               <td>Rp. <span class="uang"><?= $subtotal ?></span></td>
                               <?php $no++ ?>
@@ -147,11 +149,18 @@
                            </tr>
                         <?php endforeach; ?>
                      <tfoot>
-                        <td colspan="4" align="center"> <span class="font-weight-bold"> Total Belanja </span></td>
+                        <td colspan="5" align="center"> <span class="font-weight-bold"> Total Belanja </span></td>
                         <td class="font-weight-bold">Rp. <span class="uang"><?= $total ?></span></td>
                      </tfoot>
                      </tbody>
                   </table>
+               </div>
+               <div class="mt-4 text-center alert alert-info">
+                  <?php
+                  $realisasi = $prog->realisasi;
+                  $sisa = $realisasi - $total;
+                  ?>
+                  <span class="font-weight-bold"> Sisa Dana Rp. </span> <span class=" uang"><?= $sisa ?></span>
                </div>
             </div>
          </div>
