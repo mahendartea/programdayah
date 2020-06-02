@@ -98,7 +98,7 @@
                   </li>
                   <?php if (isset($prog->file)) : ?>
                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Berkas proposal <a href=""><span class="text-warning fa fa-fw fa-download"></span></a>
+                        Berkas proposal <a href="<?= base_url('uploads/') ?><?= $prog->file ?>" target="_blank"><span class="text-warning fa fa-fw fa-download"></span></a>
                      </li>
                   <?php else : ?>
                      <li class="list-group-item d-flex justify-content-between align-items-center">

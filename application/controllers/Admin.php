@@ -9,6 +9,7 @@ class Admin extends CI_Controller
         is_logged_in();
         $this->load->model('my_model');
         $this->load->model(array('Model_komponen', 'Model_subkomponen', 'Model_divisi', 'Model_suboutput', 'Model_rencana', 'Model_detail'));
+        $this->load->helper('url', 'form');
         // $this->load->library('pdf');
     }
 
@@ -381,6 +382,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Data Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $this->db->select('a.id,a.nm_program,a.thn_realisasi,b.nm_dayah,a.status');
         $this->db->join('petugas c', 'c.id = a.id_koor');
         $this->db->join('dayah b', 'b.id=a.id_dayah');
         $listkegiatan = $this->my_model->tampil("program a")->result();
@@ -432,5 +434,46 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/detailprogram', $data);
         $this->load->view('templates/footer');
+    }
+
+    function tambahprog()
+    {
+        $nmusualan = trim($this->security->xss_clean($this->input->post('nmusualan')));
+        $thnajuan = trim($this->security->xss_clean($this->input->post('thnajuan')));
+        $thnkeg = trim($this->security->xss_clean($this->input->post('thnkeg')));
+        $usulan = trim($this->security->xss_clean($this->input->post('usulan')));
+        $realisasi = trim($this->security->xss_clean($this->input->post('realisasi')));
+        $dayah = trim($this->security->xss_clean($this->input->post('dayah')));
+        $status = trim($this->security->xss_clean($this->input->post('status')));
+        $koor = trim($this->security->xss_clean($this->input->post('koor')));
+        // $file = trim($this->security->xss_clean($this->input->post('file')));
+
+        $danausulan = preg_replace('/\D/', '', $usulan);
+        $danarealisasi = preg_replace('/\D/', '', $realisasi);
+
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'pdf|PDF';
+        $config['max_size']             = 3000;
+        $config['encrypt_name']            = TRUE;
+        // $config['encrypt_name']            = TRUE;
+        $this->load->library('upload', $config);
+        $cekupload = $this->upload->do_upload('berkas');
+        if ($cekupload) {
+            $name = $this->upload->data("file_name");
+            $data = ['nm_program' => $nmusualan, 'thn_ajuan' => $thnajuan, 'thn_realisasi' => $thnkeg, 'ajuan' => $danausulan, 'realisasi' => $danarealisasi, 'id_dayah' => $dayah, 'status' => $status, 'file' => $name, 'id_koor' => $koor];
+            $tambahdata = $this->my_model->tambahdata("program", $data);
+            if ($tambahdata) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan!</div>');
+                redirect('admin/program');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+                redirect('admin/program');
+            }
+        } else {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('form_upload', $error);
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">File Gagal Upload!</div>');
+            redirect('admin/program');
+        }
     }
 }
