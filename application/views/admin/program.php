@@ -60,8 +60,8 @@
                                  <?php endif ?>
                               </td>
                               <td align="center" class=" font-weight-lighter">
-                                 <a href="<?= base_url('admin/programedit/') ?><?= $prg->id ?>" data-toggle="tooltip" data-placement="top" title="Ubah"><i class="fas fa-edit"></i></a> |
-                                 <a href="<?= base_url('admin/hapus_dayah/') ?><?= $prg->id ?>" onclick="return confirm_delete()" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fas fa-trash text-danger"></i></a>
+                                 <a href="<?= base_url('admin/vedit_program/') ?><?= $prg->id ?>" data-toggle="tooltip" data-placement="top" title="Ubah"><i class="fas fa-edit"></i></a> |
+                                 <a href="<?= base_url('admin/hapus_program/') ?><?= $prg->id ?>" onclick="return confirm('Apakah anda yakin menghapus? hapus program akan juga menghapus detail program..!')" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fas fa-trash text-danger"></i></a>
                                  <?php if (isset($prg->file)) : ?>
                                     | <a href="<?= base_url('uploads/') ?><?= $prg->file ?>" data-toggle="tooltip" data-placement="top" target="_blank" title="File Proposal"><i class="fas fa-file text-warning"></i></a>
                                  <?php endif ?>

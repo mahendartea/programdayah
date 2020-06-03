@@ -26,12 +26,12 @@
                      <div class="col-sm-8">
                         <select name="thnajuan" id="thnajuan" class="custom-select form-control custom-select-sm">
                            <option value="2019">2019</option>
-                           <option value="2019">2020</option>
-                           <option value="2019">2021</option>
-                           <option value="2019">2022</option>
-                           <option value="2019">2023</option>
-                           <option value="2019">2024</option>
-                           <option value="2019">2025</option>
+                           <option value="2020">2020</option>
+                           <option value="2021">2021</option>
+                           <option value="2022">2022</option>
+                           <option value="2023">2023</option>
+                           <option value="2024">2024</option>
+                           <option value="2025">2025</option>
                         </select>
                      </div>
                   </div>
@@ -40,12 +40,12 @@
                      <div class="col-sm-8">
                         <select name="thnkeg" id="thnkeg" class="custom-select form-control custom-select-sm">
                            <option value="2019">2019</option>
-                           <option value="2019">2020</option>
-                           <option value="2019">2021</option>
-                           <option value="2019">2022</option>
-                           <option value="2019">2023</option>
-                           <option value="2019">2024</option>
-                           <option value="2019">2025</option>
+                           <option value="2020">2020</option>
+                           <option value="2021">2021</option>
+                           <option value="2022">2022</option>
+                           <option value="2023">2023</option>
+                           <option value="2024">2024</option>
+                           <option value="2025">2025</option>
                         </select>
                      </div>
                   </div>

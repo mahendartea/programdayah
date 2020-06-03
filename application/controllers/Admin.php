@@ -382,7 +382,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Data Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->db->select('a.id,a.nm_program,a.thn_realisasi,b.nm_dayah,a.status');
+        $this->db->select('a.id,a.nm_program,a.thn_realisasi,b.nm_dayah,a.status,a.file');
         $this->db->join('petugas c', 'c.id = a.id_koor');
         $this->db->join('dayah b', 'b.id=a.id_dayah');
         $listkegiatan = $this->my_model->tampil("program a")->result();
@@ -473,6 +473,101 @@ class Admin extends CI_Controller
             $error = array('error' => $this->upload->display_errors());
             $this->load->view('form_upload', $error);
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">File Gagal Upload!</div>');
+            redirect('admin/program');
+        }
+    }
+
+    function hapus_program($id)
+    {
+        $where = array('id' => $id);
+        if ($this->my_model->hapus("program", $where)) {
+            $whereid = ['id_keg' => $id];
+            $this->my_model->hapus('rincian', $whereid);
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-success' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data berhasil dihapus.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata("message", "<br/><div class='alert alert-danger' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Data Gagal dihapus. Coba lagi.</div>");
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    function vedit_program($id)
+    {
+        $data['title'] = 'Edit Kegiatan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $where = array('a.id' => $id);
+
+        $this->db->select('a.id,a.nm_program,a.thn_ajuan,a.thn_realisasi,a.ajuan,a.realisasi,a.id_dayah,b.nm_dayah,a.status,c.nama,a.id_koor');
+        $this->db->join('dayah b', 'a.id_dayah=b.id', 'left');
+        $this->db->join('petugas c', 'c.id=a.id_koor', 'left');
+        $cekdata = $this->my_model->cek_data("program a", $where);
+        $data['vprogram'] = $cekdata->result();
+
+        $listdayah = $this->my_model->tampil("dayah");
+        $data['datadayah'] = $listdayah->result();
+
+        $listputugas = $this->my_model->tampil("petugas");
+        $data['datapetugas'] = $listputugas->result();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/vedit_program', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function updprog()
+    {
+        $id = trim($this->security->xss_clean($this->input->post('id')));
+        $nmusualan = trim($this->security->xss_clean($this->input->post('nmusualan')));
+        $thnajuan = trim($this->security->xss_clean($this->input->post('thnajuan')));
+        $thnkeg = trim($this->security->xss_clean($this->input->post('thnkeg')));
+        $usulan = trim($this->security->xss_clean($this->input->post('usulan')));
+        $realisasi = trim($this->security->xss_clean($this->input->post('realisasi')));
+        $dayah = trim($this->security->xss_clean($this->input->post('dayah')));
+        $status = trim($this->security->xss_clean($this->input->post('status')));
+        $koor = trim($this->security->xss_clean($this->input->post('koor')));
+        // $file = trim($this->security->xss_clean($this->input->post('file')));
+
+        $danausulan = preg_replace('/\D/', '', $usulan);
+        $danarealisasi = preg_replace('/\D/', '', $realisasi);
+
+        $whereid = ['id' => $id];
+
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'pdf|PDF';
+        $config['max_size']             = 3000;
+        $config['encrypt_name']            = TRUE;
+        $config['overwrite'] = TRUE;
+
+        $this->load->library('upload', $config);
+        $cekupload = $this->upload->do_upload('berkas');
+        if ($cekupload) {
+            $name = $this->upload->data("file_name");
+            $data = ['nm_program' => $nmusualan, 'thn_ajuan' => $thnajuan, 'thn_realisasi' => $thnkeg, 'ajuan' => $danausulan, 'realisasi' => $danarealisasi, 'id_dayah' => $dayah, 'status' => $status, 'file' => $name, 'id_koor' => $koor];
+            $tambahdata = $this->my_model->update("program", $whereid, $data);
+            if ($tambahdata) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan!</div>');
+                redirect('admin/program');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+                redirect('admin/program');
+            }
+        } else {
+            $error = array('error' => $this->upload->display_errors());
+            // $this->load->view('form_upload', $error);
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">File Gagal Upload!</div>');
+            $data = ['nm_program' => $nmusualan, 'thn_ajuan' => $thnajuan, 'thn_realisasi' => $thnkeg, 'ajuan' => $danausulan, 'realisasi' => $danarealisasi, 'id_dayah' => $dayah, 'status' => $status, 'id_koor' => $koor];
+            $tambahdata = $this->my_model->update("program", $whereid, $data);
+            if ($tambahdata) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Berhasil disimpan, file tidak ada!</div>');
+                redirect('admin/program');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal disimpan!</div>');
+                redirect('admin/program');
+            }
             redirect('admin/program');
         }
     }

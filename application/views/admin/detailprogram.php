@@ -87,7 +87,7 @@
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                      <?php if ($prog->status == '0') : ?>
                         Status Pemeriksaan <span class="btn btn-secondary">Sedang diproses</span>
-                     <?php elseif ($prof->status == '1') : ?>
+                     <?php elseif ($prog->status == '1') : ?>
                         Status Pemeriksaan <span class="btn btn-success">Diterima</span>
                      <?php else : ?>
                         Status Pemeriksaan <span class="btn btn-danger">Ditolak</span>
