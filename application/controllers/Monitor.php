@@ -35,6 +35,7 @@ class Monitor extends CI_Controller
       if ($akses->num_rows() >= 1) {
          $data = $akses->row_array();
          if (password_verify($password, $data['pass'])) {
+            $session['id'] = $data['id'];
             $session['username'] = $data['username'];
             $session['nama'] = $data['nama'];
             $session['level'] = $data['level'];

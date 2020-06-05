@@ -14,8 +14,13 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-       <a class="nav-link" href="index.html">
+       <a class="nav-link" href="<?= base_url('dashboard') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
+    </li>
+    <li class="nav-item">
+       <a class="nav-link" href="<?= base_url('dashboard/listdayah') ?>">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Daftar Dayah</span></a>
     </li>
  </ul>
