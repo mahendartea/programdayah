@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 01 Jun 2020 pada 08.51
+-- Waktu pembuatan: 05 Jun 2020 pada 14.06
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `petugas` (
 
 INSERT INTO `petugas` (`id`, `nip`, `nama`, `username`, `pass`, `alamat`, `notelp`, `level`) VALUES
 (1, 123456, 'Budiawan, S.E. M.Kom', 'budi', '$2y$10$a4en2/M.qPXuELCQfnpkSuYonOgZW6xc0jj.3wzhDNj1qhTkrG3v2', 'Kampung Jawa', '0979868216', 2),
-(3, 1892179, 'Gogon, S.P', 'gogon', '$2y$10$uczKyAK8bz3PnUCmbj4pH.EgdGPxxh0.we8KLnT7REbJaZnrkqYCG', 'Kuta Alam', '098823627', 2);
+(3, 1892179, 'Gogon, S.P', 'gogon', '$2y$10$a4en2/M.qPXuELCQfnpkSuYonOgZW6xc0jj.3wzhDNj1qhTkrG3v2', 'Kuta Alam', '098823627', 2);
 
 -- --------------------------------------------------------
 
@@ -204,14 +204,16 @@ CREATE TABLE IF NOT EXISTS `program` (
   `file` varchar(255) DEFAULT NULL,
   `id_koor` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `program`
 --
 
 INSERT INTO `program` (`id`, `nm_program`, `thn_ajuan`, `thn_realisasi`, `ajuan`, `realisasi`, `id_dayah`, `status`, `file`, `id_koor`) VALUES
-(1, 'Bangun Pagar', 2020, 2021, 1000000000, 500000000, 1, 0, NULL, 1);
+(6, 'Pembuatan Gedung Kelas', 2020, 2021, 500000000, 340000000, 2, 0, '59c2baaf35baa18c367e2424e1bbaa89.pdf', 1),
+(5, 'Pembuatan Pagar Beton Dayah Al Ikhlas', 2020, 2021, 50000000, 40000000, 1, 1, 'e42f371102205ce7e33c62055b678fb8.pdf', 1),
+(7, 'Pembuatan Meunasah Dayah', 2021, 2022, 200000000, 200000000, 3, 0, '583b3cf9bc4b8f5a09ab61fbee686ecb.pdf', 3);
 
 -- --------------------------------------------------------
 
@@ -228,15 +230,19 @@ CREATE TABLE IF NOT EXISTS `rincian` (
   `jml` int(50) DEFAULT NULL,
   `unitsatuan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rincian`
 --
 
 INSERT INTO `rincian` (`id`, `id_keg`, `nm_item`, `satuan`, `jml`, `unitsatuan`) VALUES
-(1, 1, 'paku', 5000, 10, 'Kg'),
-(2, 1, 'Batubata', 450, 500, 'Per Bata');
+(4, 6, 'Batu Bata', 500, 5000, 'Buah'),
+(3, 5, 'Belanja Paki', 4000, 1000, 'Ons'),
+(5, 5, 'Semen', 150000, 100, 'Sak'),
+(6, 6, 'Biaya Tukang', 150000, 21, 'Hari'),
+(7, 6, 'Semen Andalas', 200000, 200, 'Sak'),
+(8, 7, 'Batu Bata', 550, 240, 'Buah');
 
 -- --------------------------------------------------------
 
@@ -434,7 +440,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (23, 7, 'Data Kecamatan', 'admin/kecamatan', 'fas fa-fw fa-list-ol', 1),
 (24, 7, 'Data Dayah', 'admin/dayah', 'fas fa-fw fa-people-carry', 1),
 (25, 8, 'Program Kegiatan', 'admin/program', 'fas fa-fw fa-list-ol', 1),
-(26, 8, 'Realisasi', 'admin/realisasi', 'fas fa-funnel-dollar', 1),
+(26, 8, 'Realisasi', 'admin/realisasi', 'fas fa-funnel-dollar', 0),
 (27, 7, 'Petugas Koordinator', 'admin/petugas', 'fas fa-fw fa-people-carry', 1);
 
 -- --------------------------------------------------------
