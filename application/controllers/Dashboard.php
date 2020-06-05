@@ -36,11 +36,11 @@ class Dashboard extends CI_Controller
       $data['judul'] = 'Dashboard';
 
       $where = ['a.id_koor' => $this->session->userdata('id')];
+      $this->db->order_by('a.id', 'desc');
       $this->db->select('a.id,a.nm_program,a.thn_realisasi,b.nm_dayah,a.status,a.file');
       $this->db->join('dayah b', 'b.id=a.id_dayah');
-      $listprogram = $this->my_model->cek_data("program a", $where)->result();
-      $data['listdayah'] = $listprogram;
-
+      $listprogram = $this->my_model->cek_data("program a", $where);
+      $data['listdayah'] = $listprogram->result();
 
       $this->load->view('templates/headermonitor', $data);
       $this->load->view('templates/sidebarmonitor', $data);
@@ -69,5 +69,43 @@ class Dashboard extends CI_Controller
       $this->load->view('templates/topbarmonitor', $data);
       $this->load->view('monitor/detailprogram', $data);
       $this->load->view('templates/footermonitor', $data);
+   }
+
+   function formrincian($id)
+   {
+      $data['title'] = 'Form Rincian Kegiatan';
+      $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+      $whereidpro = ['id' => $id];
+      $infoprog = $this->my_model->cek_data('program', $whereidpro);
+      $data['infopro'] = $infoprog->result();
+
+      $this->load->view('templates/headermonitor', $data);
+      $this->load->view('templates/sidebarmonitor', $data);
+      $this->load->view('templates/topbarmonitor', $data);
+      $this->load->view('monitor/formrincian', $data);
+      $this->load->view('templates/footermonitor', $data);
+   }
+
+   function tambahrincian()
+   {
+      $idpro = trim($this->security->xss_clean($this->input->post('idpro')));
+      $nmitem = trim($this->security->xss_clean($this->input->post('nmitem')));
+      $satuan = trim($this->security->xss_clean($this->input->post('satuan')));
+      $jumlah = trim($this->security->xss_clean($this->input->post('jumlah')));
+      $unitsatuan = trim($this->security->xss_clean($this->input->post('unitsatuan')));
+
+      $danasatuan = preg_replace('/\D/', '', $satuan);
+      $jml = preg_replace('/\D/', '', $jumlah);
+
+      $data = ['id_keg' => $idpro, 'nm_item' => $nmitem, 'satuan' => $danasatuan, 'jml' => $jml, 'unitsatuan' => $unitsatuan];
+      $tambahdata = $this->my_model->tambahdata("rincian", $data);
+      if ($tambahdata) {
+         $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Data rincian berhasil disimpan!</div>');
+         redirect('dashboard/detailprog/' . $idpro);
+      } else {
+         $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">Data rincian gagal disimpan!</div>');
+         redirect('dashboard/detailprog' . $idpro);
+      }
    }
 }

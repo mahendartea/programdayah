@@ -25,6 +25,7 @@
                               <th>Nama Dayah</th>
                               <th>Status</th>
                               <th>Proposal</th>
+                              <th>Input Rincian</th>
                            </tr>
                         </thead>
                         <tfoot align="center">
@@ -35,6 +36,7 @@
                               <th>Nama Dayah</th>
                               <th>Status</th>
                               <th>Proposal</th>
+                              <th>Input Rincian</th>
                            </tr>
                         </tfoot>
                         <tbody>
@@ -44,7 +46,7 @@
                            ?>
                               <tr>
                                  <td align="center"><?= $no ?></td>
-                                 <td><span class="font-italic font-weight-bold"><a href="<?= base_url('dashboard/detailprog/') ?><?= $list->id ?>"><?= $list->nm_program ?></a></span></span></td>
+                                 <td><span class="font-italic font-weight-bold"><a href="<?= base_url('dashboard/detailprog/') ?><?= $list->id ?>"><?= $list->nm_program ?></a></span></td>
                                  <td align="center"><span class="badge badge-dark"><?= $list->thn_realisasi ?></td>
                                  <td align="center"><span class="text-uppercase font-weight-bold"><?= $list->nm_dayah ?></span></td>
                                  <td align="center">
@@ -56,14 +58,17 @@
                                        <span class="badge badge-secondary">Proses</span>
                                     <?php endif ?>
                                  </td>
-                                 <td align="center" class=" font-weight-lighter">
+                                 <td align="center" class="font-weight-lighter">
                                     <?php if (isset($list->file)) : ?>
                                        <a href="<?= base_url('uploads/') ?><?= $list->file ?>" data-toggle="tooltip" data-placement="top" target="_blank" title="File Proposal"><i class="fas fa-file text-warning"></i></a>
                                     <?php endif ?>
-                                    <?php $no++ ?>
+                                 </td>
+                                 <td align="center">
+                                    <a href="<?= base_url('dashboard/formrincian/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Rincian"><i class="fas fa-paper-plane"></i></a>
+                                 </td>
                               </tr>
-                           <?php $no++;
-                           endforeach; ?>
+                              <?php $no++; ?>
+                           <?php endforeach; ?>
                         </tbody>
                         <!-- <tr><td colspan="2"></td><td colspan="1">Jumlah Anggaran</td><td class="font-weight-bold" colspan="1">Rp. <span class="uang"> <?= $saldo ?> </span></td><td colspan="2"></td></tr> -->
                      </table>

@@ -8,7 +8,7 @@
       <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
    </div>
 
-   <?= $this->session->flashdata('message'); ?>
+   <?= $this->session->flashdata('msg'); ?>
 
    <?php foreach ($progdetail as $prog) : ?>
       <div class="row">
@@ -116,7 +116,6 @@
          <div class="card shadow mb-4">
             <div class="card-header py-3">
                <h6 class="m-0 font-weight-bold text-primary">Rincian Dana</h6>
-               <span class="float-right"><a href="" class="btn btn-primary">Input Belanja Program</a></span>
             </div>
             <div class="card-body">
                <div class="table-responsive">
