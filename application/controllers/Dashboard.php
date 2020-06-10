@@ -114,22 +114,50 @@ class Dashboard extends CI_Controller
       $data['title'] = 'Form Pregres Kegiatan';
       $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-      $whereidpro = ['a.id' => $id];
-      $this->db->join('program b', 'b.id = a.id_keg');
-      $detailprogres = $this->my_model->cek_data('progres a', $whereidpro);
-      $data['pregresd'] = $detailprogres->result();
-      // var_dump($data['pregresd']);
+      $whereidpro = ['id_keg' => $id];
+      // $this->db->join('program b', 'b.id = a.id_keg');
+      $cekprogres = $this->my_model->cek_data('progres', $whereidpro);
+      // var_dump($cekprogres);
+      if ($cekprogres->num_rows() == 0) {
+         $datapro = ['id_keg' => $id];
+         $this->my_model->tambahdata("progres", $datapro);
+         $data['idkeg'] = $id;
 
+         $this->load->view('templates/headermonitor', $data);
+         $this->load->view('templates/sidebarmonitor', $data);
+         $this->load->view('templates/topbarmonitor', $data);
+         $this->load->view('monitor/formprogres', $data);
+         $this->load->view('templates/footermonitor', $data);
+      } else {
+         $datapro = ['id_keg' => $id];
+         $this->my_model->update("progres", $whereidpro, $datapro);
+         $data['idkeg'] = $id;
 
-      $this->load->view('templates/headermonitor', $data);
-      $this->load->view('templates/sidebarmonitor', $data);
-      $this->load->view('templates/topbarmonitor', $data);
-      $this->load->view('monitor/formprogres', $data);
-      $this->load->view('templates/footermonitor', $data);
+         $this->load->view('templates/headermonitor', $data);
+         $this->load->view('templates/sidebarmonitor', $data);
+         $this->load->view('templates/topbarmonitor', $data);
+         $this->load->view('monitor/formprogres', $data);
+         $this->load->view('templates/footermonitor', $data);
+      }
    }
 
    function simpanprogress()
    {
+      $idkeg = trim($this->security->xss_clean($this->input->post('id')));
+      $pro1 = trim($this->security->xss_clean($this->input->post('pro1')));
+      $pro2 = trim($this->security->xss_clean($this->input->post('pro2')));
+      $pro3 = trim($this->security->xss_clean($this->input->post('pro3')));
+      $pro4 = trim($this->security->xss_clean($this->input->post('pro4')));
       var_dump($_POST);
+
+      // $data = ['id_keg' => $idpro, 'nm_item' => $nmitem, 'satuan' => $danasatuan, 'jml' => $jml, 'unitsatuan' => $unitsatuan];
+      // $tambahdata = $this->my_model->tambahdata("rincian", $data);
+      // if ($tambahdata) {
+      //    $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Data rincian berhasil disimpan!</div>');
+      //    redirect('dashboard/detailprog/' . $idpro);
+      // } else {
+      //    $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">Data rincian gagal disimpan!</div>');
+      //    redirect('dashboard/detailprog' . $idpro);
+      // }
    }
 }
