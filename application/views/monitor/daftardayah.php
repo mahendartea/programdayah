@@ -25,7 +25,7 @@
                               <th>Nama Dayah</th>
                               <th>Status</th>
                               <th>Proposal</th>
-                              <th>Input Rincian</th>
+                              <th>Input Data</th>
                            </tr>
                         </thead>
                         <tfoot align="center">
@@ -36,7 +36,7 @@
                               <th>Nama Dayah</th>
                               <th>Status</th>
                               <th>Proposal</th>
-                              <th>Input Rincian</th>
+                              <th>Input Data</th>
                            </tr>
                         </tfoot>
                         <tbody>
@@ -64,7 +64,8 @@
                                     <?php endif ?>
                                  </td>
                                  <td align="center">
-                                    <a href="<?= base_url('dashboard/formrincian/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Rincian"><i class="fas fa-paper-plane"></i></a>
+                                    <a href="<?= base_url('dashboard/formrincian/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Rincian"><i class="fas fa-paper-plane"></i></a> |
+                                    <a href="<?= base_url('dashboard/formprogress/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Progress"><i class="fas fa-paper-plane text-danger"></i></a>
                                  </td>
                               </tr>
                               <?php $no++; ?>

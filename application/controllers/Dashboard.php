@@ -108,4 +108,28 @@ class Dashboard extends CI_Controller
          redirect('dashboard/detailprog' . $idpro);
       }
    }
+
+   function formprogress($id)
+   {
+      $data['title'] = 'Form Pregres Kegiatan';
+      $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+      $whereidpro = ['a.id' => $id];
+      $this->db->join('program b', 'b.id = a.id_keg');
+      $detailprogres = $this->my_model->cek_data('progres a', $whereidpro);
+      $data['pregresd'] = $detailprogres->result();
+      // var_dump($data['pregresd']);
+
+
+      $this->load->view('templates/headermonitor', $data);
+      $this->load->view('templates/sidebarmonitor', $data);
+      $this->load->view('templates/topbarmonitor', $data);
+      $this->load->view('monitor/formprogres', $data);
+      $this->load->view('templates/footermonitor', $data);
+   }
+
+   function simpanprogress()
+   {
+      var_dump($_POST);
+   }
 }
