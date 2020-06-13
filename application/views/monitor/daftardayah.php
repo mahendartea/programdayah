@@ -66,7 +66,7 @@
                                  </td>
                                  <td align="center">
                                     <a href="<?= base_url('dashboard/formrincian/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Rincian"><i class="fas fa-paper-plane"></i></a> |
-                                    <a href="<?= base_url('dashboard/formprogress/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Progress"><i class="fas fa-paper-plane text-danger"></i></a>
+                                    <a href="<?= base_url('dashboard/formprogress/') ?><?= $list->id ?>" data-toggle="tooltip" data-placement="top" title="Input Progress"><i class="fa fa-tasks text-danger"></i></a>
                                  </td>
                               </tr>
                               <?php $no++; ?>
