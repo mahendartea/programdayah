@@ -42,7 +42,7 @@
                                  <label for="keterangan1">Keterangan</label>
                                  <input type="text" class="form-control" id="keterangan1" value="<?= $p->progres1 ?>" name="pro1" multiple="multiple">
                               </div>
-                              <img src="<?= base_url('uploads/img/') ?><?= $p->img1 ?>" class="img-fluid img-thumbnail rounded mx-auto d-block my-2" alt="Responsive image">
+                              <img src="<?= base_url('uploads/img/') ?><?= $p->img1 ?>" class="img-thumbnail rounded mx-auto d-block my-4" alt="Responsive image">
                               <div class="input-group mb-3">
                                  <div class="input-group-prepend">
                                     <span class="input-group-text" id="img1">Upload</span>
@@ -70,51 +70,102 @@
                         </div>
                         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                            <hr>
-                           <div class="form-group">
-                              <label for="keterangan2">Keterangan</label>
-                              <input type="text" class="form-control" id="keterangan2" placeholder="Masukan Keterangan Progres 50%" name="pro2">
-                           </div>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text" id="img2">Upload</span>
+                           <?php if (isset($p->progres2)) : ?>
+                              <div class="form-group">
+                                 <label for="keterangan2">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan2" value="<?= $p->progres2 ?>" name="pro2">
                               </div>
-                              <div class="custom-file">
-                                 <input type="file" name="image[]" class="custom-file-input" id="im2" aria-describedby="img2" multiple="multiple">
-                                 <label class="custom-file-label" for="im2">Choose file</label>
+                              <img src="<?= base_url('uploads/img/') ?><?= $p->img2 ?>" class="img-thumbnail rounded mx-auto d-block my-4" alt="Responsive image">
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img2">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im2" aria-describedby="img2" multiple="multiple">
+                                    <label class="custom-file-label" for="im2">Choose file</label>
+                                 </div>
                               </div>
-                           </div>
+                           <?php else : ?>
+                              <div class="form-group">
+                                 <label for="keterangan2">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan2" placeholder="Masukan Keterangan Progres 50%" name="pro2">
+                              </div>
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img2">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im2" aria-describedby="img2" multiple="multiple">
+                                    <label class="custom-file-label" for="im2">Choose file</label>
+                                 </div>
+                              </div>
+                           <?php endif ?>
                         </div>
                         <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
                            <hr>
-                           <div class="form-group">
-                              <label for="keterangan3">Keterangan</label>
-                              <input type="text" class="form-control" id="keterangan3" placeholder="Masukan Keterangan Progres 75%" name="pro3">
-                           </div>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text" id="img3">Upload</span>
+                           <?php if (isset($p->progres3)) : ?>
+                              <div class="form-group">
+                                 <label for="keterangan3">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan3" value="<?= $p->progres3 ?>" name="pro3">
                               </div>
-                              <div class="custom-file">
-                                 <input type="file" name="image[]" class="custom-file-input" id="im3" aria-describedby="img3" multiple="multiple">
-                                 <label class="custom-file-label" for="im3">Choose file</label>
+                              <img src="<?= base_url('uploads/img/') ?><?= $p->img3 ?>" class="img-thumbnail rounded mx-auto d-block my-4" alt="Responsive image">
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img3">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im3" aria-describedby="img3" multiple="multiple">
+                                    <label class="custom-file-label" for="im3">Choose file</label>
+                                 </div>
                               </div>
-                           </div>
+                           <?php else : ?>
+                              <div class="form-group">
+                                 <label for="keterangan3">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan3" placeholder="Masukan Keterangan Progres 75%" name="pro3">
+                              </div>
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img3">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im3" aria-describedby="img3" multiple="multiple">
+                                    <label class="custom-file-label" for="im3">Choose file</label>
+                                 </div>
+                              </div>
+                           <?php endif ?>
                         </div>
                         <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                            <hr>
-                           <div class="form-group">
-                              <label for="keterangan4">Keterangan</label>
-                              <input type="text" class="form-control" id="keterangan4" placeholder="Masukan Keterangan Progres 100%" name="pro4">
-                           </div>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text" id="img4">Upload</span>
+                           <?php if (isset($p->progres4)) : ?>
+                              <div class="form-group">
+                                 <label for="keterangan4">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan4" value="<?= $p->progres4 ?>" name="pro4">
                               </div>
-                              <div class="custom-file">
-                                 <input type="file" name="image[]" class="custom-file-input" id="im4" aria-describedby="img4" multiple="multiple">
-                                 <label class="custom-file-label" for="im4">Choose file</label>
+                              <img src="<?= base_url('uploads/img/') ?><?= $p->img4 ?>" class="img-thumbnail rounded mx-auto d-block my-4" alt="Responsive image">
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img4">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im4" aria-describedby="img4" multiple="multiple">
+                                    <label class="custom-file-label" for="im4">Choose file</label>
+                                 </div>
                               </div>
-                           </div>
+                           <?php else : ?>
+                              <div class="form-group">
+                                 <label for="keterangan4">Keterangan</label>
+                                 <input type="text" class="form-control" id="keterangan4" placeholder="Masukan Keterangan Progres 100%" name="pro4">
+                              </div>
+                              <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="img4">Upload</span>
+                                 </div>
+                                 <div class="custom-file">
+                                    <input type="file" name="image[]" class="custom-file-input" id="im4" aria-describedby="img4" multiple="multiple">
+                                    <label class="custom-file-label" for="im4">Choose file</label>
+                                 </div>
+                              </div>
+                           <?php endif ?>
                         </div>
                      </div>
                   <?php endforeach ?>
