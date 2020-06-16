@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 05 Jun 2020 pada 14.06
--- Versi server: 10.4.10-MariaDB
--- Versi PHP: 7.3.12
+-- Generation Time: Jun 16, 2020 at 09:15 AM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `anggaran`
+-- Table structure for table `anggaran`
 --
 
 DROP TABLE IF EXISTS `anggaran`;
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `anggaran` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `anggaran`
+-- Dumping data for table `anggaran`
 --
 
 INSERT INTO `anggaran` (`id`, `nama_anggaran`, `uraian`, `anggaran`, `tahun`, `access_log`, `created`) VALUES
@@ -52,7 +52,7 @@ INSERT INTO `anggaran` (`id`, `nama_anggaran`, `uraian`, `anggaran`, `tahun`, `a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dayah`
+-- Table structure for table `dayah`
 --
 
 DROP TABLE IF EXISTS `dayah`;
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `dayah` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `dayah`
+-- Dumping data for table `dayah`
 --
 
 INSERT INTO `dayah` (`id`, `nm_dayah`, `alamat`, `desa`, `id_kec`, `telp`, `ka_dayah`) VALUES
@@ -79,7 +79,7 @@ INSERT INTO `dayah` (`id`, `nm_dayah`, `alamat`, `desa`, `id_kec`, `telp`, `ka_d
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kecamatan`
+-- Table structure for table `kecamatan`
 --
 
 DROP TABLE IF EXISTS `kecamatan`;
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `kecamatan` (
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kecamatan`
+-- Dumping data for table `kecamatan`
 --
 
 INSERT INTO `kecamatan` (`id`, `nm_kec`) VALUES
@@ -107,7 +107,7 @@ INSERT INTO `kecamatan` (`id`, `nm_kec`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultan`
+-- Table structure for table `konsultan`
 --
 
 DROP TABLE IF EXISTS `konsultan`;
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `konsultan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `konsultan`
+-- Dumping data for table `konsultan`
 --
 
 INSERT INTO `konsultan` (`id`, `nama_konsultan`, `alamat`, `kecamatan`, `kota`, `kodepos`, `provinsi`, `telpon`, `keterangan`) VALUES
@@ -136,7 +136,7 @@ INSERT INTO `konsultan` (`id`, `nama_konsultan`, `alamat`, `kecamatan`, `kota`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pekerjaan`
+-- Table structure for table `pekerjaan`
 --
 
 DROP TABLE IF EXISTS `pekerjaan`;
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `pekerjaan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pekerjaan`
+-- Dumping data for table `pekerjaan`
 --
 
 INSERT INTO `pekerjaan` (`id`, `nama_pekerjaan`, `sumber`, `realisasi`) VALUES
@@ -161,7 +161,7 @@ INSERT INTO `pekerjaan` (`id`, `nama_pekerjaan`, `sumber`, `realisasi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `petugas`
+-- Table structure for table `petugas`
 --
 
 DROP TABLE IF EXISTS `petugas`;
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `petugas` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `petugas`
+-- Dumping data for table `petugas`
 --
 
 INSERT INTO `petugas` (`id`, `nip`, `nama`, `username`, `pass`, `alamat`, `notelp`, `level`) VALUES
@@ -188,7 +188,7 @@ INSERT INTO `petugas` (`id`, `nip`, `nama`, `username`, `pass`, `alamat`, `notel
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `program`
+-- Table structure for table `program`
 --
 
 DROP TABLE IF EXISTS `program`;
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `program` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `program`
+-- Dumping data for table `program`
 --
 
 INSERT INTO `program` (`id`, `nm_program`, `thn_ajuan`, `thn_realisasi`, `ajuan`, `realisasi`, `id_dayah`, `status`, `file`, `id_koor`) VALUES
@@ -218,7 +218,40 @@ INSERT INTO `program` (`id`, `nm_program`, `thn_ajuan`, `thn_realisasi`, `ajuan`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rincian`
+-- Table structure for table `progres`
+--
+
+DROP TABLE IF EXISTS `progres`;
+CREATE TABLE IF NOT EXISTS `progres` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `progres1` text DEFAULT NULL,
+  `persen1` int(5) DEFAULT NULL,
+  `img1` varchar(50) DEFAULT NULL,
+  `progres2` text DEFAULT NULL,
+  `persen2` int(5) DEFAULT NULL,
+  `img2` varchar(50) DEFAULT NULL,
+  `progres3` text DEFAULT NULL,
+  `persen3` int(5) DEFAULT NULL,
+  `img3` varchar(50) DEFAULT NULL,
+  `progres4` text DEFAULT NULL,
+  `persen4` int(5) DEFAULT NULL,
+  `img4` varchar(40) DEFAULT NULL,
+  `id_keg` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `progres`
+--
+
+INSERT INTO `progres` (`id`, `progres1`, `persen1`, `img1`, `progres2`, `persen2`, `img2`, `progres3`, `persen3`, `img3`, `progres4`, `persen4`, `img4`, `id_keg`) VALUES
+(11, 'komi', NULL, '501.png', 'ksjha', NULL, '512.png', 'sdlasj', NULL, '523.png', 'saldkj', NULL, '534.png', 5),
+(12, 'Progres25%', NULL, '60Annotation 2020-06-16 093752.png', '', NULL, '61130-COVID-Virus-6afb0dea91f2f18d30151807874d06c5', 'sadas', NULL, '6220190430_141231-2.jpeg', 'sd', NULL, '63lagi ikuti zoom penulisan karya ilmiah', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rincian`
 --
 
 DROP TABLE IF EXISTS `rincian`;
@@ -233,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `rincian` (
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `rincian`
+-- Dumping data for table `rincian`
 --
 
 INSERT INTO `rincian` (`id`, `id_keg`, `nm_item`, `satuan`, `jml`, `unitsatuan`) VALUES
@@ -247,7 +280,7 @@ INSERT INTO `rincian` (`id`, `id_keg`, `nm_item`, `satuan`, `jml`, `unitsatuan`)
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `suplier`
+-- Table structure for table `suplier`
 --
 
 DROP TABLE IF EXISTS `suplier`;
@@ -265,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `suplier` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `suplier`
+-- Dumping data for table `suplier`
 --
 
 INSERT INTO `suplier` (`id`, `nm_supplier`, `alamat`, `kecamatan`, `kota`, `kodepos`, `provinsi`, `telpon`, `keterangan`) VALUES
@@ -275,7 +308,7 @@ INSERT INTO `suplier` (`id`, `nm_supplier`, `alamat`, `kecamatan`, `kota`, `kode
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 DROP TABLE IF EXISTS `transaksi`;
@@ -294,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaksi`
+-- Dumping data for table `transaksi`
 --
 
 INSERT INTO `transaksi` (`id_t`, `no_transaksi`, `id_kerjaan`, `id_kosultan`, `id_suplier`, `nm_barang`, `vol`, `satuan`, `harga`, `tgl_transaksi`) VALUES
@@ -307,7 +340,7 @@ INSERT INTO `transaksi` (`id_t`, `no_transaksi`, `id_kerjaan`, `id_kosultan`, `i
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -324,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
@@ -335,7 +368,7 @@ INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_access_menu`
+-- Table structure for table `user_access_menu`
 --
 
 DROP TABLE IF EXISTS `user_access_menu`;
@@ -347,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `user_access_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user_access_menu`
+-- Dumping data for table `user_access_menu`
 --
 
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
@@ -359,7 +392,7 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_menu`
+-- Table structure for table `user_menu`
 --
 
 DROP TABLE IF EXISTS `user_menu`;
@@ -370,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `user_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user_menu`
+-- Dumping data for table `user_menu`
 --
 
 INSERT INTO `user_menu` (`id`, `menu`) VALUES
@@ -385,7 +418,7 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_role`
+-- Table structure for table `user_role`
 --
 
 DROP TABLE IF EXISTS `user_role`;
@@ -396,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user_role`
+-- Dumping data for table `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
@@ -406,7 +439,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_sub_menu`
+-- Table structure for table `user_sub_menu`
 --
 
 DROP TABLE IF EXISTS `user_sub_menu`;
@@ -421,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `user_sub_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user_sub_menu`
+-- Dumping data for table `user_sub_menu`
 --
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
@@ -446,7 +479,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_token`
+-- Table structure for table `user_token`
 --
 
 DROP TABLE IF EXISTS `user_token`;
