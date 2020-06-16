@@ -9,7 +9,9 @@
       <div class="col-10">
          <div class="card shadow mb-4">
             <div class="card-header py-3">
-               <h6 class="m-0 font-weight-bold text-primary">Formulir Progres Kegiatan</h6>
+               <?php foreach ($dataprogram as $datap) : ?>
+                  <h6 class="m-0 font-weight-bold text-primary">Progres Kegiatan "<?= $datap->nm_program ?>"</h6>
+               <?php endforeach ?>
             </div>
             <div class="card-body">
                <!-- Nav tabs -->

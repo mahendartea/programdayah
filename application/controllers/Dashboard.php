@@ -115,6 +115,7 @@ class Dashboard extends CI_Controller
       $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
       $whereidpro = ['id_keg' => $id];
+      $wherepro = ['id' => $id];
       // $this->db->join('program b', 'b.id = a.id_keg');
       $cekprogres = $this->my_model->cek_data('progres', $whereidpro);
       // var_dump($cekprogres);
@@ -133,6 +134,8 @@ class Dashboard extends CI_Controller
          $this->my_model->update("progres", $whereidpro, $datapro);
          $data['idkeg'] = $id;
          $data['progres'] = $cekprogres->result();
+         $programkeg = $this->my_model->cek_data('program', $wherepro);
+         $data['dataprogram'] = $programkeg->result();
 
          $this->load->view('templates/headermonitor', $data);
          $this->load->view('templates/sidebarmonitor', $data);
@@ -165,16 +168,18 @@ class Dashboard extends CI_Controller
             $config['upload_path'] = './uploads/img/';
             $config['file_name'] = $nama_baru;
             $config['overwrite'] = TRUE;
+            $config['remove_spaces'] = FALSE;
 
-            $_FILES['image']['name'] = $files['image']['name'][$i];
+            $_FILES['image']['name'] = trim($files['image']['name'][$i]);
             $_FILES['image']['type'] = $files['image']['type'][$i];
-            $_FILES['image']['tmp_name'] = $files['image']['tmp_name'][$i];
+            $_FILES['image']['tmp_name'] = trim($files['image']['tmp_name'][$i]);
             $_FILES['image']['error'] = $files['image']['error'][$i];
             $_FILES['image']['size'] = $files['image']['size'][$i];
 
             $this->load->library('upload', $config);
 
             $this->upload->initialize($config);
+
             $updateFoto = $this->upload->do_upload('image');
             if ($updateFoto) {
                $angka = $i + 1;

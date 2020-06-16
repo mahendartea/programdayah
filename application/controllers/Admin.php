@@ -419,21 +419,46 @@ class Admin extends CI_Controller
         $data['title'] = 'Detail Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $where = ['a.id' => $id];
-        $this->db->join('petugas c', 'c.id = a.id_koor');
-        $this->db->join('dayah b', 'b.id=a.id_dayah');
-        $detailprogram = $this->my_model->cek_data('program a', $where);
-        $data['progdetail'] = $detailprogram->result();
+        $wherepro = ['id_keg' => $id];
+        $cekdataprogres = $this->my_model->cek_data('progres', $wherepro)->num_rows();
+        if ($cekdataprogres) {
+            // echo "True";
+            // die;
+            $where = ['a.id' => $id];
+            $this->db->join('progres d', 'a.id = d.id_keg');
+            $this->db->join('petugas c', 'c.id = a.id_koor');
+            $this->db->join('dayah b', 'b.id=a.id_dayah');
+            $detailprogram = $this->my_model->cek_data('program a', $where);
+            $data['progdetail'] = $detailprogram->result();
 
-        $where = ['id_keg' => $id];
-        $detailrincian = $this->my_model->cek_data('rincian', $where);
-        $data['rincian'] = $detailrincian->result();
+            $where = ['id_keg' => $id];
+            $detailrincian = $this->my_model->cek_data('rincian', $where);
+            $data['rincian'] = $detailrincian->result();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/detailprogram', $data);
-        $this->load->view('templates/footer');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/detailprogram', $data);
+            $this->load->view('templates/footer');
+        } else {
+            // echo "false";
+            // die;
+            $where = ['a.id' => $id];
+            $this->db->join('petugas c', 'c.id = a.id_koor');
+            $this->db->join('dayah b', 'b.id=a.id_dayah');
+            $detailprogram = $this->my_model->cek_data('program a', $where);
+            $data['progdetail'] = $detailprogram->result();
+
+            $where = ['id_keg' => $id];
+            $detailrincian = $this->my_model->cek_data('rincian', $where);
+            $data['rincian'] = $detailrincian->result();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/detailprogram', $data);
+            $this->load->view('templates/footer');
+        }
     }
 
     function tambahprog()

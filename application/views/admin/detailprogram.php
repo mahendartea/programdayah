@@ -9,7 +9,7 @@
    </div>
 
    <?= $this->session->flashdata('message'); ?>
-
+   <!-- <?php var_dump($progdetail) ?> -->
    <?php foreach ($progdetail as $prog) : ?>
       <div class="row">
          <div class="col-7">
@@ -105,6 +105,52 @@
                         berkas proposal <span class="badge badge-danger">Belum Upload</span>
                      </li>
                   <?php endif ?>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-12">
+            <div class="card shadow mb-4">
+               <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Progres Kegiatan</h6>
+               </div>
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-3">
+                        <?php if (isset($prog->img1)) : ?>
+                           <a href="<?php echo base_url('uploads/img/') . $prog->img1 ?>" target="_blank"><img src="<?php echo base_url('uploads/img/') . $prog->img1 ?>" alt="" class="img-thumbnail"></a>
+                           <p class="text-center alert alert-danger">Progres 25%</p>
+                        <?php else : ?>
+                           <p class="text-center alert alert-danger">Progres 25% (Belum Upload Progres)</p>
+                        <?php endif ?>
+                     </div>
+                     <div class="col-3">
+                        <?php if (isset($prog->img2)) : ?>
+                           <a href="<?php echo base_url('uploads/img/') . $prog->img2 ?>" target="_blank"><img src="<?php echo base_url('uploads/img/') . $prog->img2 ?>" alt="" class="img-thumbnail"></a>
+                           <p class="text-center alert alert-warning">Progres 50% </p>
+                        <?php else : ?>
+                           <p class="text-center alert alert-danger">Progres 50% (Belum Upload Progres)</p>
+                        <?php endif ?>
+                     </div>
+                     <div class="col-3">
+                        <?php if (isset($prog->img3)) : ?>
+                           <a href="<?php echo base_url('uploads/img/') . $prog->img3 ?>" target="_blank"><img src="<?php echo base_url('uploads/img/') . $prog->img3 ?>" alt="" class="img-thumbnail"></a>
+                           <p class="text-center alert alert-secondary">Progres 75%</p>
+                        <?php else : ?>
+                           <p class="text-center alert alert-danger">Progres 75% (Belum Upload Progres)</p>
+                        <?php endif ?>
+                     </div>
+                     <div class="col-3">
+                        <?php if (isset($prog->img3)) : ?>
+                           <a href="<?php echo base_url('uploads/img/') . $prog->img4 ?>" target="_blank"><img src="<?php echo base_url('uploads/img/') . $prog->img4 ?>" alt="" class="img-thumbnail"></a>
+                           <p class="text-center alert alert-success">Progres 100%</p>
+                        <?php else : ?>
+                           <p class="text-center alert alert-danger">Progres 100% (Belum Upload Progres)</p>
+                        <?php endif ?>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
