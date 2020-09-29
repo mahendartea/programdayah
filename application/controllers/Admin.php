@@ -305,17 +305,16 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function update_pass()
+    public function update_pass($id)
     {
-        $id = trim($this->security->xss_clean($this->input->post('id')));
-        $pass = trim($this->security->xss_clean($this->input->post('pass')));
+        // $id = trim($this->security->xss_clean($this->input->post('id')));
+        $pass = $this->input->post('pass');
 
-        $whereid = ['id' => $id];
+        $whereid = ['nip' => $id];
         $passs = password_hash($pass, PASSWORD_DEFAULT);
         $password = ['pass' => $passs];
 
         $updpass = $this->my_model->update('petugas', $whereid, $password);
-
         if ($updpass) {
             $this->session->set_flashdata("message", "<br/><div class='alert alert-info' role='alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Password Berhasil dirubah..!</div>");
         } else {
@@ -483,6 +482,7 @@ class Admin extends CI_Controller
         // $config['encrypt_name']            = TRUE;
         $this->load->library('upload', $config);
         $cekupload = $this->upload->do_upload('berkas');
+        $this->upload->initialize($config);
         if ($cekupload) {
             $name = $this->upload->data("file_name");
             $data = ['nm_program' => $nmusualan, 'thn_ajuan' => $thnajuan, 'thn_realisasi' => $thnkeg, 'ajuan' => $danausulan, 'realisasi' => $danarealisasi, 'id_dayah' => $dayah, 'status' => $status, 'file' => $name, 'id_koor' => $koor];

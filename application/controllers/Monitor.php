@@ -27,7 +27,6 @@ class Monitor extends CI_Controller
       $username = trim($this->security->xss_clean($this->input->post('username')));
       $password = trim($this->security->xss_clean($this->input->post('password')));
 
-
       // echo password_hash($password, PASSWORD_DEFAULT);
 
       $where = array('username' => $username);

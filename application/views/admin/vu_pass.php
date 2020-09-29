@@ -6,12 +6,12 @@
 
    <?php foreach ($passgan as $pg) : ?>
       <div class="col-md-6">
-         <form action="<?= base_url('admin/update_pass') ?>" method="post">
-            <input type="text" name="id" value="<?= $pg->id ?>" hidden>
+         <form action="<?= base_url('admin/update_pass/') ?><?= $pg->nip ?>" method="post">
+            <input type="text" name="id" value="<?= $pg->nip ?>" hidden>
             <label for="basic-url">Password Baru Koordinator : <?= $pg->nama ?></label>
 
             <div class="input-group mb-3">
-               <input type="text" class="form-control" name="uppas" placeholder="Masukan Password Baru!">
+               <input type="password" class="form-control" name="uppas" placeholder="Masukan Password Baru!">
             </div>
 
             <hr>

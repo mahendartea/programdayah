@@ -21,7 +21,7 @@
 
                         <form class="user" method="post" action="<?= base_url('monitor/ceklogin'); ?>">
                            <div class="form-group">
-                              <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">
+                              <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Email Address...">
                            </div>
                            <div class="form-group">
                               <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
